@@ -1,24 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="user-scalable=no, 
+  <meta name="viewport" content="user-scalable=no, 
     initial-scale=1, maximum-scale=1, 
     minimum-scale=1, width=device-width;" />
-<title>Cordova Application</title>
-<script type="text/javascript" 
+  <title>Cordova Application</title>
+
+  <script type="text/javascript" 
       src="cordova.js"></script>
-<script type="text/javascript">
-    function onLoad() {
+
+  <script type="text/javascript">
+    /*function onLoad() {
       document.addEventListener("deviceready", onDeviceReady, false);
     }
 
     function onDeviceReady() {
       alert('Cordova has loaded');
-    }
+    }*/
+    // The watch id variable is set as a 
+	// reference to the current `watchAcceleration`
+	var watchID = null;
+
+	// Set the event listener to run when the device is ready
+	document.addEventListener("deviceready", onDeviceReady, false);
+
+	// The device is ready so let's 
+	// start watching the acceleration
+	function onDeviceReady() {
+
+  		startWatch();
+
+	}
+	
+	// Watch the acceleration at regular 
+	// intervals as set by the frequency
+	function startWatch() {
+
+ 	 // Set the frequency of updates from the acceleration
+  	 var options = { frequency: 100 };
+
+  	// Assign watchAcceleration to the watchID variable
+  	// and pass through the options array
+  	watchID = 
+    navigator.accelerometer.watchAcceleration(
+      onSuccess, onError, options);
+	}
+	
+	
+	function onSuccess(acceleration) {
+    	alert("in onSuccess");
+		
+		if(acceleration.x)
+		{
+			alert("side to side");
+		}
+		
+		if(acceleration.y)
+		{
+			alert("front to back");
+		}
+		
+		if(acceleration.z)
+		{
+				alert("up and down");
+		}
+  	
+
+	}
+	
+	// Run if we face an error 
+	// obtaining the accelerometer data
+	function onError() {
+	alert("there was an error ramona");
+}
+
   </script>
+
 </head>
-<body onLoad="onLoad()">
-<h1>Welcome to Cordova</h1>
-<p>What will you create?</p>
+<body>
+
+  <h1>Welcome to Cordova</h1>
+
+  <p>What will you create?</p>
+
 </body>
 </html>
