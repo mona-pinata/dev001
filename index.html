@@ -1,108 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
-    <title>Accelerometer Data</title>
-    <script type="text/javascript" src="cordova.js"></script><!-- was: cordova-2.0.0.js -->
-    <!-- Add PhoneGap script here -->
-    <script type="text/javascript">
-        alert("Updated 2013-07-13-c (Saturday)")
-        // The watch id variable is set as a 
-        // reference to the current 'watchAcceleration'
-        var watchID = null;
+  <meta name="viewport" content="user-scalable=no, 
+    initial-scale=1, maximum-scale=1, 
+    minimum-scale=1, width=device-width;" />
+  <title>Cordova Application</title>
 
+  <script type="text/javascript" 
+      src="cordova.js"></script>
 
-        // Set the event listener to run 
-        // when the device is ready
-        document.addEventListener(
-				"deviceready", onDeviceReady, false);
+  <script type="text/javascript">
+   alert("in");
+   function onLoad() {
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
 
-        // The device is ready so let's 
-        // start watching the acceleration
-        function onDeviceReady() {
-            startWatch();
-        }
+    function onDeviceReady() {
+      alert('Cordova has loaded');
+    }
+	// The watch id variable is set as a 
+	// reference to the current `watchAcceleration`
+	var watchID = null;
 
-        // Watch the acceleration at regular 
-        // intervals as set by the frequency
-        function startWatch() {
+	// Set the event listener to run when the device is ready
+	document.addEventListener("deviceready", onDeviceReady, false);
 
-            // Set the frequency of updates 
-            // from the acceleration
-            var options = { frequency: 300 };
+	// The device is ready so let's 
+	// start watching the acceleration
+	function onDeviceReady() {
 
-            // Set attributes for control buttons
-            document.getElementById('startBtn').disabled = true;
-            document.getElementById('stopBtn').disabled = false;
+  		startWatch();
 
-            // Assign watchAcceleration to the watchID variable
-            // and pass through the options array
-            watchID = navigator.accelerometer.watchAcceleration(
-							onSuccess, onError, options);
-        }
+	}
+	
+	// Watch the acceleration at regular 
+	// intervals as set by the frequency
+	function startWatch() {
+	alert("hello");
+ 	 // Set the frequency of updates from the acceleration
+  	 var options = { frequency: 100 };
 
-        // Stop watching the acceleration
-        function stopWatch() {
+  	// Assign watchAcceleration to the watchID variable
+  	// and pass through the options array
+  	watchID = 
+    navigator.accelerometer.watchAcceleration(
+      onSuccess, onError, options);
+	}
+	
+	
+	function onSuccess(acceleration) {
+    	alert("in onSuccess");
+		
+		if(acceleration.x)
+		{
+			alert("side to side");
+		}
+		
+		if(acceleration.y)
+		{
+			alert("front to back");
+		}
+		
+		if(acceleration.z)
+		{
+				alert("up and down");
+		}
+  	
 
-            if (watchID) {
-                navigator.accelerometer.clearWatch(watchID);
-                watchID = null;
+	}
+	
+	// Run if we face an error 
+	// obtaining the accelerometer data
+	function onError() {
+	alert("there was an error ramona");
+}
 
-                var element =
-				document.getElementById('accelerometerData');
+  </script>
 
-                element.innerHTML =
-				'No longer watching your acceleration.'
-
-                // Set attributes for control buttons
-                document.getElementById('startBtn').disabled = false;
-                document.getElementById('stopBtn').disabled = true;
-
-            }
-
-        }
-
-
-        // Run after successful transaction
-        // Let's display the accelerometer data
-        function onSuccess(acceleration) {
-            var element = document.getElementById('accelerometerData');
-            element.innerHTML =
-                'Acceleration X: ' + acceleration.x + '<br />' +
-                'Acceleration Y: ' + acceleration.y + '<br />' +
-                'Acceleration Z: ' + acceleration.z + '<br />' +
-                'Timestamp: ' + acceleration.timestamp + '<br />';
-        }
-
-
-        // Run if we face an error 
-        // obtaining the accelerometer data
-        function onError() {
-            // Handle any errors we may face
-            var element = document.getElementById('accelerometerData');
-            element.innerHTML =
-			'Sorry, I was unable to access the acceleration data.';
-        }
-	</script>
-    <style type="text/css">
-        body, h1, h2, h3, h4, p, td, li {
-            font-family: Tahoma, Verdana, Geneva, sans-serif;
-        }
-        .memo {
-            font-size: smaller;
-        }
-    </style>
 </head>
 <body>
-    <h1>
-        Accelerometer Data</h1>
-    <button id="startBtn" onclick="startWatch()">
-        start</button>
-    <button id="stopBtn" onclick="stopWatch()">
-        stop</button>
-    <div id="accelerometerData">
-        Obtaining data...</div>
-    <p class="memo">
-        C:\Extract\PhoneGap Mobile Application Development Cookbook\Chapter 1\02_WatchAcceleration\www</p>
+
+  <h1>Welcome to Cordova</h1>
+
+  <p>What will you create?</p>
+
 </body>
 </html>
