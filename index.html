@@ -69,15 +69,17 @@
 				{
 					for (var i=0; i <betaArray.length; i++)
 					{
-						if((betaArray[betaArray.length-1] != null) && (betaArray[betaArray.length-2] != null)){
+						if((betaArray[betaArray.length-1] != null) && (betaArray[betaArray.length-2] != null))
+						{
 							if((beta > 0) && (betaArray[betaArray.length-1] - betaArray[betaArray.length-2] >= 6))
 							{
-								alert("your number is positive and the differrence is greater than 6 so jump!);
+								alert("your number is positive and the differrence is greater than 6 so jump!");
 							}
 							else
 							{
-								alert(move the phone more so you can jump!");
+								alert("move the phone more so you can jump!");
 							}
+						}
 					}
 				}
 				
@@ -107,6 +109,3 @@
   <div id="dataContainerOrientation"></div> 	
 </body>
 </html>
-
- 
-
