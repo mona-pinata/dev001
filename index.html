@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="user-scalable=no, 
@@ -10,7 +10,7 @@
       src="cordova.js"></script>
 
   <script type="text/javascript">
-   alert("in");
+   
    function onLoad() {
       document.addEventListener("deviceready", onDeviceReady, false);
     }
@@ -36,7 +36,7 @@
 	// Watch the acceleration at regular 
 	// intervals as set by the frequency
 	function startWatch() {
-	alert("hello");
+	alert("in startWatch");
  	 // Set the frequency of updates from the acceleration
   	 var options = { frequency: 100 };
 
@@ -50,21 +50,20 @@
 	
 	function onSuccess(acceleration) {
     	alert("in onSuccess");
-		
-		if(acceleration.x)
-		{
-			alert("side to side");
-		}
-		
-		if(acceleration.y)
-		{
-			alert("front to back");
-		}
-		
-		if(acceleration.z)
-		{
-				alert("up and down");
-		}
+	//Find our div containers in the DOM
+      var dataContainerOrientation = document.getElementById('dataContainerOrientation');
+	  
+	//Check for support for DeviceOrientation event
+      if(window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', function(event) {
+                var alpha = event.alpha;
+                var beta = event.beta;
+                var gamma = event.gamma;
+ 
+                if(alpha!=null || beta!=null || gamma!=null) 
+                  dataContainerOrientation.innerHTML = 'alpha: ' + alpha + '<br/>beta: ' + beta + '<br />gamma: ' + gamma;
+              }, false);
+      }
   	
 
 	}
@@ -84,5 +83,6 @@
 
   <p>What will you create?</p>
 
+  <div id="dataContainerOrientation"></div> 	
 </body>
 </html>
