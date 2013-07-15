@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="user-scalable=no, 
@@ -47,19 +47,40 @@
       onSuccess, onError, options);
 	}
 	
-	
+	 //create an array that will store each the beta points
+	 var betaArray = new Array();
+	  
 	function onSuccess(acceleration) {
     	alert("in onSuccess");
 	//Find our div containers in the DOM
       var dataContainerOrientation = document.getElementById('dataContainerOrientation');
 	  
+
 	//Check for support for DeviceOrientation event
       if(window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
                 var alpha = event.alpha;
                 var beta = event.beta;
                 var gamma = event.gamma;
- 
+ 				
+				betaArray.push(beta);
+				
+				if(betaArray.length >= 2)
+				{
+					for (var i=0; i <betaArray.length; i++)
+					{
+						if((betaArray[betaArray.length-1] != null) && (betaArray[betaArray.length-2] != null)){
+							if((beta > 0) && (betaArray[betaArray.length-1] - betaArray[betaArray.length-2] >= 6))
+							{
+								alert("your number is positive and the differrence is greater than 6 so jump!);
+							}
+							else
+							{
+								alert(move the phone more so you can jump!");
+							}
+					}
+				}
+				
                 if(alpha!=null || beta!=null || gamma!=null) 
                   dataContainerOrientation.innerHTML = 'alpha: ' + alpha + '<br/>beta: ' + beta + '<br />gamma: ' + gamma;
               }, false);
@@ -86,3 +107,6 @@
   <div id="dataContainerOrientation"></div> 	
 </body>
 </html>
+
+ 
+
