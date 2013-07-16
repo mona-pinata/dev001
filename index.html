@@ -37,7 +37,8 @@
 		
 		
 		function onSuccess(acceleration) {
-    	
+    	var successElement = document.getElementById('success');
+		
 		//Check for support for DeviceOrientation event
       	if(window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
