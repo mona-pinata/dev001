@@ -73,11 +73,19 @@
 						{
 							if((beta > 0) && (betaArray[betaArray.length-1] - betaArray[betaArray.length-2] >= 6))
 							{
-								alert("your number is positive and the differrence is greater than 6 so jump!");
+								// alert("your number is positive and the differrence is greater than 6 so jump!");
+								// hbi:
+								document.getElementById("debugOutput").innerHTML = "your number is positive and the "
+																			     + "differrence is greater than 6 so jump!<br />"
+																				 + document.getElementById("debugOutput").innerHTML;
 							}
 							else
 							{
-								alert("move the phone more so you can jump!");
+								// alert("move the phone more so you can jump!");
+								// hbi:
+								document.getElementById("debugOutput").innerHTML = "move the phone more so you can jump!<br />"
+																				 + document.getElementById("debugOutput").innerHTML;								
+								
 							}
 						}
 					}
@@ -106,6 +114,7 @@
 
   <p>What will you create?</p>
 
-  <div id="dataContainerOrientation"></div> 	
+  <div id="dataContainerOrientation"></div>
+  <div id="debugOutput" style="border: solid 1px gray; padding: 3;"></div>
 </body>
 </html>
