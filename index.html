@@ -7,7 +7,7 @@
     <script type="text/javascript" src="cordova.js"></script>
          
     <script type="text/javascript">
-  	// The watch id variable is set as a 
+		// The watch id variable is set as a 
 		// reference to the current `watchAcceleration`
 		var watchID = null;
 		
@@ -38,9 +38,19 @@
 		
 		function onSuccess(acceleration) {
     	
-		var successElement = document.getElementById('success');
-   
-  		successElement.innerHTML = 'things are successful';
+		//Check for support for DeviceOrientation event
+      	if(window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', function(event) {
+                var alpha = event.alpha;
+                var beta = event.beta;
+                var gamma = event.gamma;
+ 
+                if(alpha!=null || beta!=null || gamma!=null) 
+                  successElement.innerHTML = 'alpha: ' + alpha + '<br/>beta: ' + beta + '<br />gamma: ' + gamma;
+              }, false);
+      }
+		
+
  		
 
 		}
