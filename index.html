@@ -40,7 +40,7 @@
     	var successElement = document.getElementById('success');
 		
 		//Check for support for DeviceOrientation event
-      	while(window.DeviceOrientationEvent) {
+      	if(window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
                 var alpha = event.alpha;
                 var beta = event.beta;
