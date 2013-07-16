@@ -1,121 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="user-scalable=no, 
-    initial-scale=1, maximum-scale=1, 
-    minimum-scale=1, width=device-width;" />
-  <title>Cordova Application</title>
-  <script type="text/javascript" src="cordova.js"></script>
-  <script type="text/javascript">
-    function onLoad() {
-      document.addEventListener("deviceready", onDeviceReady, false);
-    }
+  <head>
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
 
-    function onDeviceReady() {
-      alert('Cordova has loaded');
-    }
-    // The watch id variable is set as a 
-    // reference to the current `watchAcceleration`
-    var watchID = null;
+    <title>Accelerometer Movement</title>
+    <script type="text/javascript" src="cordova.js"></script>
+         
+    <script type="text/javascript">
+  	// The watch id variable is set as a 
+		// reference to the current `watchAcceleration`
+		var watchID = null;
+		
+		// Set the event listener to run when the device is ready
+		document.addEventListener("deviceready", onDeviceReady, false);
 
-    // Set the event listener to run when the device is ready
-    document.addEventListener("deviceready", onDeviceReady, false);
+		// The device is ready so let's 
+		// start watching the acceleration
+		function onDeviceReady() {
 
-    // The device is ready so let's 
-    // start watching the acceleration
-    function onDeviceReady() {
-      startWatch();
-    }
+ 			 startWatch();
 
-    // Watch the acceleration at regular 
-    // intervals as set by the frequency
-    function startWatch() {
-      // alert("in startWatch");
-      // Set the frequency of updates from the acceleration
-      var options = { frequency: 100 };
+		}
+		
+		
+		// Watch the acceleration at regular 
+		// intervals as set by the frequency
+		function startWatch() {
 
-      // Assign watchAcceleration to the watchID variable
-      // and pass through the options array
-      watchID = navigator.accelerometer.watchAcceleration(
-                        onSuccess, onError, options);
-    }
+  		// Set the frequency of updates from the acceleration
+   		var options = { frequency: 100 };
 
-    //create an array that will store each the beta points
-    var betaArray = new Array();
+  		// Assign watchAcceleration to the watchID variable
+ 		// and pass through the options array
+ 		watchID =  navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+		}
+		
+		
+		function onSuccess(acceleration) {
+    	
+		var successElement = document.getElementById('success');
+   
+  		successElement.innerHTML = 'things are successful';
+ 		
 
-    function onSuccess(acceleration) {
-      // alert("in onSuccess");
-      //Find our div containers in the DOM
-      var dataContainerOrientation = document.getElementById('dataContainerOrientation');
+		}
+		
+		
+		// Run if we face an error 
+		// obtaining the accelerometer data
+		function onError() {
+  
+  		// Handle any errors we may face
+  		var accelElement = document.getElementById('accelerometerData');
+   
+  		accelElement.innerHTML = 'Sorry, I was unable to access the acceleration data.';
+		}
+  	</script>
+  
 
+  </head>
+  <body>
+    <h1>Accelerometer Movement</h1>
 
-      //Check for support for DeviceOrientation event
-      if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', function (event) {
-          var alpha = event.alpha;
-          var beta = event.beta;
-          var gamma = event.gamma;
+    <div id="success"></div>
 
-          betaArray.push(beta);
-          // alert("betaArray.length is " + betaArray.length);
-          if (betaArray.length >= 2) {
-            for (var i = 0; i < betaArray.length; i++) {
-              if ((betaArray[betaArray.length - 1] != null) && (betaArray[betaArray.length - 2] != null)) {
-                if ((beta > 0) && (betaArray[betaArray.length - 1] - betaArray[betaArray.length - 2] >= 6)) {
-                  // alert("your number is positive and the differrence is greater than 6 so jump!");
-                  // hbi:
-                  var currentdate = new Date();
-                  var theTime = " @ " + currentdate.getHours() + ":"
-                                      + currentdate.getMinutes() + ":"
-                                      + currentdate.getSeconds();
-                  document.getElementById("debugOutput").innerHTML = theTime
-                                                                   + "your number is positive and the "
-                                                                   + "differrence is greater than 6 so jump!<br />"
-                                                                   + document.getElementById("debugOutput").innerHTML;
-                  if (document.getElementById("debugOutput").innerHTML.length > 5000) {
-                    document.getElementById("debugOutput").innerHTML = "(cleared) <br />";
-                  } 
-                }
-                else {
-                  // alert("move the phone more so you can jump!");
-                  // hbi:
-                  var currentdate = new Date();
-                  var theTime = " @ " + currentdate.getHours() + ":"
-                                      + currentdate.getMinutes() + ":"
-                                      + currentdate.getSeconds();
-                  document.getElementById("debugOutput").innerHTML = theTime
-                                                                   + " move the phone more so you can jump!<br />"
-                                                                   + document.getElementById("debugOutput").innerHTML;
-                  if (document.getElementById("debugOutput").innerHTML.length > 5000) {
-                    document.getElementById("debugOutput").innerHTML = "(cleared) <br />";
-                  }
-                }
-              }
-            }
-          }
-
-          //if(alpha!=null || beta!=null || gamma!=null) 
-          dataContainerOrientation.innerHTML = 'alpha: ' + alpha + '<br/>beta: ' + beta + '<br />gamma: ' + gamma;
-        }, false);
-      }
-    }
-
-    // Run if we face an error 
-    // obtaining the accelerometer data
-    function onError() {
-      alert("there was an error ramona");
-    }
-
-  </script>
-</head>
-<body>
-  <h1>
-    Welcome to Cordova</h1>
-  <p>
-    What will you create?</p>
-  <div id="dataContainerOrientation">
-  </div>
-  <div id="debugOutput" style="border: solid 1px gray; padding: 3;">
-  </div>
-</body>
+    <div id="accelerometerData">Obtaining data...</div>
+  
+  </body>
 </html>
