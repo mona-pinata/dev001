@@ -7,12 +7,6 @@
   <title>Cordova Application</title>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript">
-	//HBI: For the time now
-	Date.prototype.timeNow = function(){
-        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") 
-                 + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
-	};
-
     function onLoad() {
       document.addEventListener("deviceready", onDeviceReady, false);
     }
@@ -70,21 +64,31 @@
                 if ((beta > 0) && (betaArray[betaArray.length - 1] - betaArray[betaArray.length - 2] >= 6)) {
                   // alert("your number is positive and the differrence is greater than 6 so jump!");
                   // hbi:
-                  document.getElementById("debugOutput").innerHTML = " @ " + newDate.timeNow() 
-				  														   + "your number is positive and the "
-																		   + "differrence is greater than 6 so jump!<br />"
-																		   + document.getElementById("debugOutput").innerHTML;
-			      if (document.getElementById("debugOutput").innerHTML.length > 5000)
-				  	document.getElementById("debugOutput").innerHTML = "(cleared) <br />";
+                  var currentdate = new Date();
+                  var theTime = " @ " + currentdate.getHours() + ":"
+                                      + currentdate.getMinutes() + ":"
+                                      + currentdate.getSeconds();
+                  document.getElementById("debugOutput").innerHTML = theTime
+                                                                   + "your number is positive and the "
+                                                                   + "differrence is greater than 6 so jump!<br />"
+                                                                   + document.getElementById("debugOutput").innerHTML;
+                  if (document.getElementById("debugOutput").innerHTML.length > 5000) {
+                    document.getElementById("debugOutput").innerHTML = "(cleared) <br />";
+                  } 
                 }
                 else {
                   // alert("move the phone more so you can jump!");
                   // hbi:
-                  document.getElementById("debugOutput").innerHTML = " @ " + newDate.timeNow() 
-				                                                   + " move the phone more so you can jump!<br />"
-														           + document.getElementById("debugOutput").innerHTML;
-			      if (document.getElementById("debugOutput").innerHTML.length > 5000)
-				  	document.getElementById("debugOutput").innerHTML = "(cleared) <br />";													   
+                  var currentdate = new Date();
+                  var theTime = " @ " + currentdate.getHours() + ":"
+                                      + currentdate.getMinutes() + ":"
+                                      + currentdate.getSeconds();
+                  document.getElementById("debugOutput").innerHTML = theTime
+                                                                   + " move the phone more so you can jump!<br />"
+                                                                   + document.getElementById("debugOutput").innerHTML;
+                  if (document.getElementById("debugOutput").innerHTML.length > 5000) {
+                    document.getElementById("debugOutput").innerHTML = "(cleared) <br />";
+                  }
                 }
               }
             }
@@ -105,9 +109,13 @@
   </script>
 </head>
 <body>
-  <h1>Welcome to Cordova</h1>
-  <p>What will you create?</p>
-  <div id="dataContainerOrientation"></div>
-  <div id="debugOutput" style="border: solid 1px gray; padding: 3;"></div>
+  <h1>
+    Welcome to Cordova</h1>
+  <p>
+    What will you create?</p>
+  <div id="dataContainerOrientation">
+  </div>
+  <div id="debugOutput" style="border: solid 1px gray; padding: 3;">
+  </div>
 </body>
 </html>
